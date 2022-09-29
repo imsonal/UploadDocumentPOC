@@ -1,0 +1,68 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE HTML>
+<html>
+<head>
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+    <script src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
+
+</head>
+<body>
+
+    <div id="chartContainer" style="height: 370px; width: 100%;"></div>
+</body>
+
+
+</html>
+
+<script>
+    $.ajax({
+        method: 'get',
+        url: '/test/json',
+        contentType: "application/json",
+        dataType: "json",
+        success: function (data) {
+            //alert(JSON.stringify(data));
+            //alert(data);
+
+            var dataPoints = [];
+            var chart
+
+            for (var i = 0; i < data.length; i++) {
+                dataPoints.push({
+                    x: new Date(data[i].x),
+                    y: data[i].y
+                });
+
+                chart = new CanvasJS.Chart("chartContainer", {
+                    animationEnabled: true,
+                    title: {
+                        text: "My Test Chart"
+                    },
+                    axisX: {
+                        valueFormatString: "DD MMM"
+                    },
+                    axisY: {
+                        title: "Sales (in USD)",
+                        prefix: "$"
+                    },
+                    data: [{
+                        type: "spline",
+                        xValueType: "dateTime",
+                        xValueFormatString: "DD MMM",
+                        yValueFormatString: "$#,###",
+                        dataPoints: dataPoints
+                        //dataPoints: [{ "x": 1637597471269.0, "y": 2500.0 }, { "x": 1637683871269.0, "y": 2600.0 }, { "x": 1637770271269.0, "y": 2700.0 }]
+                    }]
+                });
+
+                chart.render();
+
+            }
+        }
+    });
+
+</script>

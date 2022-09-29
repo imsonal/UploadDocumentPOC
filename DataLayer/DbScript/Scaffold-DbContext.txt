@@ -1,0 +1,14 @@
+Read Me
+
+=======================================
+Install Nuget Before Run This Command :
+=======================================
+Microsoft.EntityFrameworkCore
+Microsoft.EntityFrameworkCore.SqlServer
+Microsoft.EntityFrameworkCore.Design
+Microsoft.EntityFrameworkCore.Tools
+=======================================
+
+1. Scaffold-DbContext to update DB models from latest DB
+
+Scaffold-DbContext "Server=.;user=sa;password=123;Database=YahooFinance;Trusted_Connection=False;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Entities  -Tables StockDataLogMst,SymbolDataMst,StockHistoryMst -Force
